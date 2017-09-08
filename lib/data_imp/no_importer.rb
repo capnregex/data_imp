@@ -1,4 +1,4 @@
-class DataImp::NoPorter < StandardError
+class DataImp::NoImporter < StandardError
   attr_accessor :porter_type
   def initialize(porter_type)
     @porter_type = porter_type

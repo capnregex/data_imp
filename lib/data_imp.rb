@@ -1,12 +1,10 @@
 
 require 'active_support/core_ext/string'
 require_relative "data_imp/version"
-require_relative "data_imp/parser"
-require_relative "data_imp/porter"
 require_relative "data_imp/class_methods"
 
 # Dir[File.dirname(__FILE__) + '/data_imp/*.rb'].each {|file| require file }
-module DataImp
+class DataImp
   extend DataImp::ClassMethods
   attr_accessor :reader, :parser, :importer, :extname, :basename
 
@@ -19,14 +17,6 @@ module DataImp
     self.extname  = extname.downcase.sub('.','')
     self.importer = find_importer(importer || basename) # returns class
     self.parser   = find_parser(parser || extname) # returns class
-  end
-
-  def find_parser type
-    return type if type.kind_of? DataImp::Parser
-    type = type.to_s.classify
-    const_get "#{type}Parser"
-  rescue NameError => e
-    Parser.const_get type
   end
 
   def import

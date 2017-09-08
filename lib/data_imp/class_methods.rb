@@ -1,6 +1,12 @@
 require 'pathname'
 
+require_relative "parser"
+require_relative "porter"
+
 module DataImp::ClassMethods
+  def self.extended(mod)
+    mod.delegate :find_parser, to: :class
+  end
 
   def root= dir
     @root = dir
@@ -28,6 +34,22 @@ module DataImp::ClassMethods
         import_file word
       end
     end
+  end
+
+  def find_parser type
+    return type if type.kind_of? DataImp::Parser
+    type = type.to_s.classify
+    const_get "#{type}Parser"
+  rescue NameError => e
+    DataImp::Parser.find_parser type
+  end
+
+  def find_importer type
+    return type if type.kind_of? DataImp::Porter
+    type = type.to_s.classify
+    const_get "#{type}Importer"
+  rescue NameError => e
+    DataImp::Porter.find_importer type
   end
 end
 

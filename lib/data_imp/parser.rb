@@ -24,7 +24,7 @@ class DataImp::Parser
   end
 
   def parse chunk
-    chunk # default is to assume records are already in a hash form
+    chunk # assume chunk is a hash
   end
 end
 
