@@ -32,7 +32,7 @@ module DataImp::ClassMethods
 
   def import(file=nil,*args,&block)
     file.strip!
-    next if file =! /^#/
+    return if file =! /^#/
     file = data_dir.join(file)
     new(file, *args,&block).import
   end
