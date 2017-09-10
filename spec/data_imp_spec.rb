@@ -22,6 +22,10 @@ class HeroImporter < HerosImporter
 end
 
 RSpec.describe DataImp do
+  before do
+    allow_any_instance_of(described_class).to receive(:show_progress).at_least(:once)
+    allow_any_instance_of(described_class).to receive(:puts).at_least(:once)
+  end
   it_behaves_like "find parser"
   it_behaves_like "find importer"
   it "has a version number" do
@@ -31,8 +35,6 @@ RSpec.describe DataImp do
   shared_examples "parse file" do |file|
   #  let(:filename){file}
     it "can parse file #{file}" do
-      expect_any_instance_of(described_class).to receive(:show_progress)
-      expect_any_instance_of(described_class).to receive(:puts).twice
       described_class.import(file)
     end
   end
@@ -44,4 +46,17 @@ RSpec.describe DataImp do
   it_behaves_like "parse file", 'data/heros.xls'
   it_behaves_like "parse file", 'data/heros.xlsx'
   it_behaves_like "parse file", 'data/heros.ods'
+
+  it "can load a list of files" do
+    described_class.import_list <<-LIST
+      data/hero.yaml
+      data/heros.yaml
+      data/hero.json
+      data/heros.json
+      data/heros.csv
+      data/heros.xls
+      data/heros.xlsx
+      data/heros.ods
+    LIST
+  end
 end
