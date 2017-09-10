@@ -2,7 +2,7 @@ require "spec_helper"
 
 RSpec.describe DataImp::Porter do
   it_behaves_like "find importer"
-  let(:hash){{foo: :bar, 'blue': 'beetle'}}
+  let(:hash){HashWithIndifferentAccess.new(foo: :bar, 'blue': 'beetle')}
   let(:index){1}
   subject{ described_class.new(hash, index) }
   let(:error){StandardError.new("foo")}
@@ -24,7 +24,7 @@ RSpec.describe DataImp::Porter do
     expect{ subject.on_error(error) }.to output(/^Error:/).to_stderr 
     expect(subject.foo).to eq(:bar) 
     expect(subject.blurb).to be nil 
-    expect(subject.hash).to be hash 
+    expect(subject.hash).to eq hash 
     expect(subject.index).to be index 
     expect(subject.parse(:method,:value)).to eq :value
   end

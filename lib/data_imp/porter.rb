@@ -1,3 +1,4 @@
+require 'active_support/hash_with_indifferent_access'
 require_relative 'no_importer'
 class DataImp::Porter
   attr_reader :hash, :index
@@ -15,18 +16,18 @@ class DataImp::Porter
     raise DataImp::NoImporter.new(type)
   end
 
-  def initialize(hash, index)
-    @hash = hash
+  def initialize(hash, index = nil)
+    @hash = HashWithIndifferentAccess.new(hash)
     @index = index
   end
 
   def respond_to_missing?(method, include_private = false)
-    hash.has_key?(method.to_sym) || hash.has_key?(method.to_s) || false # super
+    hash.has_key?(method) || false # super
   end
 
   def method_missing(method, *_args)
     return nil unless respond_to_missing?(method)
-    value = hash[method] || hash[method.to_s] # treat like indifferent
+    value = hash[method] 
     parse(method,value)
   end
 
