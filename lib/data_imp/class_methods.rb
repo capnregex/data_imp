@@ -13,11 +13,17 @@ module DataImp::ClassMethods
   end
 
   def root
-    @root ||= Pathname.new '.'
+    @root ||= Pathname.pwd
   end
 
   def data_dir= dir
-    @data_dir = dir
+    path = Pathname.new(dir)
+    @data_dir = 
+      if path.absolute?
+        path
+      else
+        root.join(path)
+      end
   end
 
   def data_dir
@@ -31,7 +37,9 @@ module DataImp::ClassMethods
   def import_list *args
     args.each do |arg| 
       arg.split.each do |word|
-        import word.strip
+        word.strip!
+        next if word =! /^#/
+        import data_dir.join(word)
       end
     end
   end

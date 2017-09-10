@@ -48,15 +48,16 @@ RSpec.describe DataImp do
   it_behaves_like "parse file", 'data/heros.ods'
 
   it "can load a list of files" do
+    described_class.data_dir = 'data'
     described_class.import_list <<-LIST
-      data/hero.yaml
-      data/heros.yaml
-      data/hero.json
-      data/heros.json
-      data/heros.csv
-      data/heros.xls
-      data/heros.xlsx
-      data/heros.ods
+      hero.yaml
+      heros.yaml
+      hero.json
+      heros.json
+      heros.csv
+      heros.xls
+      heros.xlsx
+      heros.ods
     LIST
   end
 end
