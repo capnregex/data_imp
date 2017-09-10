@@ -30,16 +30,17 @@ module DataImp::ClassMethods
     @data_dir ||= root.join('data')
   end
 
-  def import(*args,&block)
-    new(*args,&block).import
+  def import(file=nil,*args,&block)
+    file.strip!
+    next if file =! /^#/
+    file = data_dir.join(file)
+    new(file, *args,&block).import
   end
 
   def import_list *args
     args.each do |arg| 
-      arg.split.each do |word|
-        word.strip!
-        next if word =! /^#/
-        import data_dir.join(word)
+      arg.split.each do |file|
+        import file
       end
     end
   end
