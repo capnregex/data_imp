@@ -18,7 +18,58 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+The use of this gem requires that you define an 'importer' for your files. 
+
+the fields from your data will be available to the importer as if they were local variables. 
+```ruby
+class SampleImporter < DataImp::Porter
+  def import
+    User.create_with(
+      name: name,
+    ).find_or_create_by(
+      email: email
+    )
+  end
+end
+```
+
+If you had your users in a csv file like
+
+```csv
+name,email
+George,george@example.com
+Fred,fred@example.net
+```
+
+You could then use
+```ruby
+DataImp.import 'user.csv'
+```
+
+If you had your users in a yaml file like
+
+```yaml
+---
+- name: George
+  email: george@example.com
+- name: Fred
+  email: fred@example.net
+```
+
+You could then use
+```ruby
+DataImp.import 'user.yaml'
+```
+
+The same importer would be used for either example. 
+
+The importer is looked up by the base name, or provided by the `importer:` parameter. . 'user' in this case. 
+
+Parsing of the file is done by a Parser class and is looked up by the file extension, or the `parser:` parameter. 
+
+Pre defined parsers are located in the lib/data_imp/parsers/ folder
+
+If you need to write your own, define it as 'class ExtParser < DataImp::Parser' to create or override the 'ext' extension parser. 
 
 ## Development
 
