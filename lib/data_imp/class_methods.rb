@@ -5,7 +5,7 @@ require_relative "porter"
 
 module DataImp::ClassMethods
   def self.extended(mod)
-    mod.delegate :find_parser, :find_importer, to: :class
+    mod.delegate :data_dir, :find_parser, :find_importer, to: :class
   end
 
   def root= dir
@@ -33,7 +33,6 @@ module DataImp::ClassMethods
   def import(file=nil,*args,&block)
     file.strip!
     return if file =! /^#/
-    file = data_dir.join(file)
     new(file, *args,&block).import
   end
 

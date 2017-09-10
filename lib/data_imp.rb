@@ -9,7 +9,7 @@ class DataImp
   attr_accessor :file, :parser, :importer, :extname, :basename
 
   def initialize file = nil, parser: nil, importer: nil
-    self.file = file
+    self.file = data_dir.join(file)
     extname = File.extname(file)
     self.basename ||= File.basename(file, extname)
     self.extname  = extname = extname.downcase.sub('.','')

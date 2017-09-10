@@ -38,14 +38,14 @@ RSpec.describe DataImp do
       described_class.import(file)
     end
   end
-  it_behaves_like "parse file", 'data/hero.yaml'
-  it_behaves_like "parse file", 'data/heros.yaml'
-  it_behaves_like "parse file", 'data/hero.json'
-  it_behaves_like "parse file", 'data/heros.json'
-  it_behaves_like "parse file", 'data/heros.csv'
-  it_behaves_like "parse file", 'data/heros.xls'
-  it_behaves_like "parse file", 'data/heros.xlsx'
-  it_behaves_like "parse file", 'data/heros.ods'
+  it_behaves_like "parse file", 'hero.yaml'
+  it_behaves_like "parse file", 'heros.yaml'
+  it_behaves_like "parse file", 'hero.json'
+  it_behaves_like "parse file", 'heros.json'
+  it_behaves_like "parse file", 'heros.csv'
+  it_behaves_like "parse file", 'heros.xls'
+  it_behaves_like "parse file", 'heros.xlsx'
+  it_behaves_like "parse file", 'heros.ods'
 
   it "can load a list of files" do
     described_class.data_dir = 'data'
