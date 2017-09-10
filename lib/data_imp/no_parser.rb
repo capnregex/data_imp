@@ -4,7 +4,7 @@ class DataImp::NoParser < StandardError
     @parser_type = parser_type
     super <<-MSG.strip_heredoc
       Unable to find Parser for #{parser_type.inspect}
-      Please define: class #{parser_type.classify}Parser < DataImp::Parser
+      Please define: class #{parser_type.camelize}Parser < DataImp::Parser
     MSG
   end
 end

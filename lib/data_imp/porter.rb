@@ -25,7 +25,7 @@ class DataImp::Porter
   end
 
   def method_missing(method, *_args)
-    return nil unless hash.has_key? method
+    return nil unless respond_to_missing?(method)
     value = hash[method] || hash[method.to_s] # treat like indifferent
     parse(method,value)
   end

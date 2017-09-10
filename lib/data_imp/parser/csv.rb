@@ -4,12 +4,13 @@ class DataImp::Parser::Csv < DataImp::Parser
     { headers: true }
   end
 
-  def process input
-    csv = CSV.new(input, options)
-    index = 1
-    csv.each do |row|
-      yield row, index
-      ++index
+  def parse chunk
+    chunk.to_h
+  end
+
+  def process_file &block
+    CSV.open(filename, options) do |csv|
+      process csv, &block
     end
   end
 end

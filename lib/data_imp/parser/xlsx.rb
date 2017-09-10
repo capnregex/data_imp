@@ -1,5 +1,5 @@
-require_relative 'xls'
-class DataImp::Parser::Xlsx < DataImp::Parser::Xls
+require_relative 'spreadsheet'
+class DataImp::Parser::Xlsx < DataImp::Parser::Spreadsheet
   def options
     { extension: :xlsx }
   end

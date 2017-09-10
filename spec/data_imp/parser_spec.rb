@@ -15,3 +15,4 @@ RSpec.describe DataImp::Parser do
     expect(subject.parse(:foo)).to eq(:foo)
   end
 end
+

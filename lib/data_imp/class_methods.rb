@@ -5,7 +5,7 @@ require_relative "porter"
 
 module DataImp::ClassMethods
   def self.extended(mod)
-    mod.delegate :find_parser, to: :class
+    mod.delegate :find_parser, :find_importer, to: :class
   end
 
   def root= dir
@@ -38,7 +38,7 @@ module DataImp::ClassMethods
 
   def find_parser type
     return type if type.kind_of? DataImp::Parser
-    type = type.to_s.classify
+    type = type.to_s.camelize
     const_get "#{type}Parser"
   rescue NameError => e
     DataImp::Parser.find_parser type
@@ -46,7 +46,7 @@ module DataImp::ClassMethods
 
   def find_importer type
     return type if type.kind_of? DataImp::Porter
-    type = type.to_s.classify
+    type = type.to_s.camelize
     const_get "#{type}Importer"
   rescue NameError => e
     DataImp::Porter.find_importer type
