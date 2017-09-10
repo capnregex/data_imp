@@ -38,7 +38,7 @@ module DataImp::ClassMethods
 
   def import_list *args
     args.each do |arg| 
-      arg.split.each do |file|
+      arg.each_line do |file|
         import file
       end
     end

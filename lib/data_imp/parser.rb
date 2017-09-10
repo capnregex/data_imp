@@ -28,7 +28,7 @@ class DataImp::Parser
     input.each do |chunk|
       hash = parse(chunk)
       yield hash, index
-      ++index
+      index += 1
     end
   end
 
