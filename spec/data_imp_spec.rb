@@ -33,7 +33,7 @@ RSpec.describe DataImp do
     it "can parse file #{file}" do
       expect_any_instance_of(described_class).to receive(:show_progress)
       expect_any_instance_of(described_class).to receive(:puts).twice
-      described_class.import(file: file)
+      described_class.import(file)
     end
   end
   it_behaves_like "parse file", 'data/hero.yaml'

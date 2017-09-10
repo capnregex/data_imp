@@ -8,7 +8,7 @@ class DataImp
   extend DataImp::ClassMethods
   attr_accessor :file, :parser, :importer, :extname, :basename
 
-  def initialize file: nil, parser: nil, importer: nil
+  def initialize file = nil, parser: nil, importer: nil
     self.file = file
     extname = File.extname(file)
     self.basename ||= File.basename(file, extname)
