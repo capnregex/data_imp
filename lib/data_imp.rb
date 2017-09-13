@@ -1,10 +1,16 @@
 
 require 'active_support/core_ext/string'
-require_relative "data_imp/version"
+
+require_relative "data_imp/finders"
+require_relative "data_imp/dir"
+require_relative "data_imp/import_methods"
 require_relative "data_imp/class_methods"
 
 # Dir[File.dirname(__FILE__) + '/data_imp/*.rb'].each {|file| require file }
 class DataImp
+  extend DataImp::Finders
+  extend DataImp::Dir
+  extend DataImp::ImportMethods
   extend DataImp::ClassMethods
   attr_accessor :file, :parser, :importer, :extname, :basename
 
@@ -41,30 +47,5 @@ class DataImp
     print '.' if index % 100 == 0
   end
 
-#  def import_file file
-#
-#    parser_class_name = ext.classify
-#    importer_class_name = base.concat('_importer').classify
-#    file = data_dir.join(file)
-#
-#    begin
-#      parser = const_get(parser_class_name)
-#      importer = importer_class_name.constantize
-#    rescue NameError => e
-#      warn "No importer class: #{e}"
-#      return 
-#    end
-#    parser.new(file, importer).import
-#  end
-
-#  def reader= reader
-#    return unless reader
-#    @reader = 
-#      case reader
-#      when IO,DataImp::Reader then reader
-#      when String then open(reader)
-#      when Pathname then reader.open
-#      end
-#  end
 end
 
