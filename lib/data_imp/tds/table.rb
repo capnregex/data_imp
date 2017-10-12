@@ -1,13 +1,17 @@
 class DataImp::Tds::Table
   attr_reader :client, :table, :schema
-  def initialize client, table, schema: 'dbo'
+  def initialize client, table, schema:
     @client = client
     @table = table
     @schema = schema
   end
 
   def sql
-    "select * from [#{schema}].[#{table}]"
+    if schema
+      "select * from [#{schema}].[#{table}]"
+    else
+      "select * from [#{table}]"
+    end
   end
 
   def result

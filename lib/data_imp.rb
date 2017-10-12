@@ -1,6 +1,9 @@
 
 require 'active_support/core_ext/string'
 
+class DataImp
+end
+
 require_relative "data_imp/finders"
 require_relative "data_imp/dir"
 require_relative "data_imp/import_methods"

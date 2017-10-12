@@ -16,6 +16,8 @@ class DataImp::Tds
   end
 
   def import table
+    table.strip!
+    return if table =~ /^#/
     parts = table.split('.')
     table = parts.pop
     schema = parts.shift
@@ -37,6 +39,12 @@ class DataImp::Tds
     end
     importer.after_all_imports
     puts
+  end
+
+  def import_list list, *args, &block
+    list.each_line do |table|
+      import table, *args, &block
+    end
   end
 
   def show_progress index
