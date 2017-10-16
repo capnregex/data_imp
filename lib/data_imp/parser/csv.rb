@@ -1,6 +1,6 @@
 require 'csv'
 class DataImp::Parser::Csv < DataImp::Parser
-  def options
+  def csv_options
     { headers: true }
   end
 
@@ -9,7 +9,7 @@ class DataImp::Parser::Csv < DataImp::Parser
   end
 
   def process_file &block
-    CSV.open(filename, options) do |csv|
+    CSV.open(filename, csv_options) do |csv|
       process csv, &block
     end
   end

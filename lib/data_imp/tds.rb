@@ -1,53 +1,16 @@
 require 'tiny_tds'
-require_relative "finders"
-class DataImp::Tds
-  extend DataImp::Finders
-
-  def initialize options={}
-    @options = options
-  end
-
-  def options
-    @options ||= {}
-  end
-
-  def client
-    @client ||= TinyTds::Client.new options
-  end
-
-  def import table
-    table.strip!
-    return if table =~ /^#/
-    parts = table.split('.')
-    table = parts.pop
-    schema = parts.shift
-    importer = find_importer(table)
-    tbl = Table.new(client, table, schema: schema)
-    puts "Importing #{table} with #{importer}"
-    importer.before_all_imports
-    tbl.each do |hash, index|
-      porter = importer.new(hash,index)
-      begin
-        porter.before_import
-        porter.import
-        porter.after_import
-        show_progress index
-      rescue StandardError => e
-        warn "#{table}:#{index}:#{e.class.name}"
-        porter.on_error e
-      end
+require_relative "base"
+class DataImp
+  class Tds < Base
+    def self.default_options
+      super.merge(
+        username: ENV['MSSQL_USERNAME'], 
+        password: ENV['MSSQL_PASSWORD'], 
+        host: ENV['MSSQL_HOST'],
+        database: ENV['MSSQL_DB']
+      )
     end
-    importer.after_all_imports
-    puts
-  end
-
-  def import_list list, *args, &block
-    list.each_line do |table|
-      import table, *args, &block
-    end
-  end
-
-  def show_progress index
   end
 end
-require_relative "tds/table"
+require_relative "tds/import"
+

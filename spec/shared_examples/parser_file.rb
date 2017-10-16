@@ -1,7 +1,7 @@
 require "spec_helper"
 
 RSpec.shared_examples "parser" do |filename, number|
-  subject{ described_class.new(filename) }
+  subject{ described_class.new(filename: filename) }
   let(:parser) { subject }
   let(:record) do 
     { "name"=>"George", 

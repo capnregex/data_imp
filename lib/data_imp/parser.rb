@@ -1,22 +1,19 @@
 require_relative 'no_parser'
+require_relative 'options'
 class DataImp::Parser
-  attr_reader :filename
+  include DataImp::Options
 
-  def initialize filename=nil
-    @filename = filename
-  end
-
-  def self.find_parser type
+  def self.find type
     return self if type.blank?
-    begin
-      const_get type.camelize
-    rescue NameError => e
-      if require_relative "parser/#{type.underscore}"
-        retry 
-      end
+    parser_type = type.classify
+    type_parser = parser_type + 'Parser'
+    if Object.const_defined? type_parser
+      return Object.const_get type_parser
+    elsif const_defined? parser_type
+      return const_get parser_type
+    else
+      raise DataImp::NoParser.new(type)
     end
-  rescue LoadError => e
-    raise DataImp::NoParser.new(type)
   end
 
   def parse chunk
@@ -27,8 +24,16 @@ class DataImp::Parser
     index = 1
     input.each do |chunk|
       hash = parse(chunk)
-      yield hash, index
+      block.call hash, index
       index += 1
+    end
+  end
+
+  def filename
+    if options.has_key? :filename
+      Pathname.pwd.join(options[:filename])
+    elsif options.has_key? :line and options.has_key? :dir
+      Pathname.pwd.join(options[:dir],options[:line])
     end
   end
 
@@ -37,5 +42,13 @@ class DataImp::Parser
       process file, &block
     end
   end
+
+  def each &block
+    process_file &block
+  end
+
 end
+require_relative 'parser/csv'
+require_relative 'parser/json'
+require_relative 'parser/yaml'
 

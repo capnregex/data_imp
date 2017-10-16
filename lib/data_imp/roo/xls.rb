@@ -1,7 +1,7 @@
 require_relative 'spreadsheet'
 require 'roo-xls'
-class DataImp::Parser::Xls < DataImp::Parser::Spreadsheet
-  def roo_options
+class DataImp::Roo::Xls < DataImp::Roo::Spreadsheet
+  def options
     { extension: "xls"}
   end
 end

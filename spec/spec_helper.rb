@@ -1,5 +1,7 @@
 require "bundler/setup"
 require "data_imp"
+require 'pry'
+require 'pry-byebug'
 
 RSpec.configure do |config|
   # Enable flags like --only-failures and --next-failure
@@ -12,5 +14,7 @@ RSpec.configure do |config|
     c.syntax = :expect
   end
 end
+
+Dir[File.join(File.dirname(__FILE__),'lib/**/*.rb')].each { |f| require f }
 Dir[File.join(File.dirname(__FILE__),'support/**/*.rb')].each { |f| require f }
 Dir[File.join(File.dirname(__FILE__),'shared_examples/**/*.rb')].each { |f| require f }

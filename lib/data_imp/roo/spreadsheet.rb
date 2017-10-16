@@ -1,11 +1,11 @@
 require 'roo'
-class DataImp::Parser::Spreadsheet < DataImp::Parser
-  def roo_options
+class DataImp::Roo::Spreadsheet < DataImp::Parser
+  def options
     { }
   end
 
   def process_file &block
-    spreadsheet = Roo::Spreadsheet.open(filename, roo_options)
+    spreadsheet = Roo::Spreadsheet.open(filename, options)
     header = spreadsheet.row(1)
     (2..spreadsheet.last_row).each do |index|
       row = spreadsheet.row(index)

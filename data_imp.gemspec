@@ -3,6 +3,14 @@ lib = File.expand_path("../lib", __FILE__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 require "data_imp/version"
 
+plugin_files = Dir['data_imp-*.gemspec'].map { |gemspec|
+  eval(File.read(gemspec)).files
+}.flatten.uniq
+
+files = `git ls-files -z`.split("\x0").reject do |f|
+  f.match(%r{^(test|spec|features|data)/})
+end
+
 Gem::Specification.new do |spec|
   spec.name          = "data_imp"
   spec.version       = DataImp::VERSION
@@ -13,19 +21,10 @@ Gem::Specification.new do |spec|
   spec.homepage      = "https://github.com/capnregex/data_imp"
   spec.license       = "MIT"
 
-  spec.files         = `git ls-files -z`.split("\x0").reject do |f|
-    f.match(%r{^(test|spec|features)/})
-  end
-  spec.bindir        = "exe"
-  spec.executables   = spec.files.grep(%r{^exe/}) { |f| File.basename(f) }
+  spec.files         = files - plugin_files
+  spec.test_files    = `git ls-files -- spec`.split("\n")
+  spec.executables   = spec.files.grep(%r{^bin/}) { |f| File.basename(f) }
   spec.require_paths = ["lib"]
 
-  spec.add_runtime_dependency 'activesupport'
-
-  spec.add_development_dependency "bundler", "~> 1.15.4"
-  spec.add_development_dependency "rake", "~> 10.0"
-  spec.add_development_dependency "rspec", "~> 3.0"
-  spec.add_development_dependency "roo" #, "~> 3.0"
-  spec.add_development_dependency "roo-xls" #, "~> 3.0"
-  spec.add_development_dependency "tiny_tds"
+  spec.add_dependency 'activesupport'
 end
