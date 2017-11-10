@@ -1,3 +1,4 @@
+
 require 'tiny_tds'
 require_relative "base"
 class DataImp

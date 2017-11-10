@@ -7,7 +7,6 @@ require_relative "data_imp/options"
 require_relative "data_imp/dir"
 require_relative "data_imp/import"
 
-# Dir[File.dirname(__FILE__) + '/data_imp/*.rb'].each {|file| require file }
 class DataImp
   include DataImp::Options
   extend DataImp::Finders
