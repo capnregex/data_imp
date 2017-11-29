@@ -30,4 +30,5 @@ class DataImp
       end
     end
   end
+  include Options
 end

@@ -2,7 +2,12 @@
 class DataImp
   module Import
     def parse(line)
-      options.merge(line: line)
+      case line
+      when /^(\w+)\.(\w+)$/
+        options.merge(line: line, importer: $1, parser: $2)
+      else
+        options.merge(line: line)
+      end
     end
 
     def importer opts
@@ -17,6 +22,7 @@ class DataImp
       line.strip!
       return if line =~ /^#/
       opts = parse(line)
+      puts "import(#{line}) => #{opts.inspect}"
       importer(opts).process parser(opts)
     end
 
@@ -29,4 +35,7 @@ class DataImp
     def show_progress index
     end
   end
+
+  extend Import
+  include Import
 end

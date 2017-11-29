@@ -17,4 +17,5 @@ class DataImp
       options[:dir]
     end
   end
+  extend Dir
 end

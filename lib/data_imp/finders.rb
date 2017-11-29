@@ -21,4 +21,5 @@ class DataImp
       DataImp::Importer.find type
     end
   end
+  extend Finders
 end

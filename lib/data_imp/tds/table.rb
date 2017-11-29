@@ -23,6 +23,14 @@ class DataImp
       def each &block
         result.each &block
       end
+
+      def to_s
+        if schema
+          "TDS:#{schema}.#{table}"
+        else
+          "TDS:#{table}"
+        end
+      end
     end
   end
 end

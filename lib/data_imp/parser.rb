@@ -48,6 +48,10 @@ class DataImp
       process_file &block
     end
 
+    def to_s
+      "#{self.class.name}:[#{options[:type]}]"
+    end
+
   end
 end
 require_relative 'parser/csv'

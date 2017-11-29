@@ -19,6 +19,7 @@ class DataImp
     end
 
     def self.process source
+      puts "Import from #{source} using #{name}"
       before_all_imports
       index = 0
       source.each do |hash|
@@ -27,6 +28,7 @@ class DataImp
         show_progress index
       end
       after_all_imports
+      puts
     end
 
     def process
