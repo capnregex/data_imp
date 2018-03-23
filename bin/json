@@ -1,0 +1,12 @@
+#!/usr/bin/env ruby
+require_relative '../config/environment.rb'
+include FileUtils
+
+args = ARGV.clone
+table = args.shift
+fields = args.empty? ? '*' : args.join(', ')
+
+sql = "select #{fields} from #{table}"
+result = ActiveRecord::Base.connection.exec_query sql
+puts JSON.pretty_generate(result.to_hash)
+
