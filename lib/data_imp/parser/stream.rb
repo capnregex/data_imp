@@ -1,15 +1,18 @@
 class DataImp::Parser::Stream < DataImp::Parser
-  def process input
+  def process input, &block
     if input.respond_to? :read
       input = input.read
     end
-    data = process_string(input)
+    process_data process_string(input), &block
+  end
+
+  def process_data data, &block
     case data
     when Hash
-      yield data, 0
+      block.call(data, 0)
     when Array
       data.each_with_index do |node, index|
-        yield node, index
+        block.call(node, index)
       end
     end
   end

@@ -29,6 +29,10 @@ class DataImp::Parser
     end
   end
 
+  def blob
+    options[:blob] || ''
+  end
+
   def filename
     if options.has_key? :filename
       Pathname.pwd.join(options[:filename])
@@ -43,8 +47,16 @@ class DataImp::Parser
     end
   end
 
+  def process_blob &block
+    blob.each_line &block
+  end
+
   def each &block
-    process_file &block
+    if options.has_key? :blob
+      process_blob &block
+    else
+      process_file &block
+    end
   end
 
 end

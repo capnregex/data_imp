@@ -9,11 +9,10 @@ end
 git_source(:github) {|repo_name| "https://github.com/#{repo_name}" }
 
 group :test do
-  gem "bundler", "~> 1.15.4"
-  gem "rake", "~> 10.0"
-  gem "rspec", "~> 3.0"
-  gem "roo" #, "~> 3.0"
-  gem "roo-xls" #, "~> 3.0"
+  gem "rake"
+  gem "rspec"
+  gem "roo"
+  gem "roo-xls"
   gem "tiny_tds"
   gem 'activesupport', :require => false
   gem 'pry'
