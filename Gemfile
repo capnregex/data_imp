@@ -13,7 +13,6 @@ group :test do
   gem "rspec"
   gem "roo"
   gem "roo-xls"
-  gem "tiny_tds"
   gem 'activesupport', :require => false
   gem 'pry'
   gem 'pry-byebug'

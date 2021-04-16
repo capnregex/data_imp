@@ -29,5 +29,4 @@ Gem::Specification.new do |spec|
   spec.add_dependency 'activesupport', "~> 6.0"
   spec.add_dependency 'roo', '~> 2.0'
   spec.add_dependency 'roo-xls', '~> 1.2'
-  spec.add_dependency 'tiny_tds', '~> 2.1'
 end
