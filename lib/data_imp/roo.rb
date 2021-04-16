@@ -1,12 +1,9 @@
-require 'tiny_tds'
 require_relative "finders"
 class DataImp::Roo
 end
 require_relative "roo/import"
 class DataImp::Roo
   extend DataImp::Finders
-  extend DataImp::Tds::Import
-  include DataImp::Tds::Import
   class << self
     def options
       @options ||= {
