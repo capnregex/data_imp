@@ -9,7 +9,7 @@ class DataImp::Parser::Csv < DataImp::Parser
   end
 
   def process_file &block
-    CSV.open(filename, options) do |csv|
+    CSV.open(filename, **options) do |csv|
       process csv, &block
     end
   end

@@ -1,5 +1,6 @@
 
-require 'active_support/core_ext/string'
+require 'active_support'
+require 'active_support/all'
 
 class DataImp
 end

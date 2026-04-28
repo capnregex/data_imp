@@ -19,7 +19,7 @@ end
 class DatabaseImporter < DatabasesImporter
 end
 
-RSpec.describe DataImp::Tds do
+RSpec.describe DataImp::Tds, skip: 'needs host etc' do
   let(:tds) do
     described_class.new(
       username: ENV['MSSQL_USERNAME'], 
