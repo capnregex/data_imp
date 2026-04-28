@@ -3,6 +3,10 @@
 /Gemfile.lock
 /_yardoc/
 /coverage/
+/data_imp/coverage/
+/data_imp-roo/coverage/
+/data_imp-tds/coverage/
+*.gem
 /doc/
 /pkg/
 /spec/reports/
@@ -12,3 +16,4 @@
 .rspec_status
 *~
 .*.swp
+.byebug_history

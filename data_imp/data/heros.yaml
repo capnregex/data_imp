@@ -1,0 +1,6 @@
+- name: George
+  rank: Sargent
+  serial_number: 9991212
+- name: Sam
+  rank: Private
+  serial_number: 1234567
