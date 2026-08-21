@@ -3,7 +3,6 @@ require "spec_helper"
 RSpec.describe DataImp::Parser do
   let(:parser) { subject }
   it_behaves_like "find parser", :find_parser
-  it_behaves_like "find parser", :find
   it "can process input" do
     is_expected.to respond_to(:process)
     

@@ -5,9 +5,11 @@ class DataImp::Porter
 
   class << self
     def find_importer type
+      return type if type.kind_of? DataImp::Porter
       return self if type.blank?
       begin
-        const_get type.classify
+        type = type.to_s.camelize
+        const_get type
       rescue NameError => e
         if require_relative "porter/#{type.underscore}"
           retry 
@@ -16,8 +18,6 @@ class DataImp::Porter
     rescue LoadError => e
       raise DataImp::NoImporter.new(type)
     end
-
-    alias_method :find, :find_importer
   end
 
   def initialize(hash, index = nil)

@@ -14,16 +14,20 @@ module DataImp::Finders
   def find_parser type
     return type if type.kind_of? DataImp::Parser
     type = type.to_s.camelize
-    const_get "#{type}Parser"
-  rescue NameError => e
-    DataImp::Parser.find_parser type
+    "#{type}Parser".safe_constantize ||
+      "#{type.singularize}Parser".safe_constantize ||
+      "#{type.pluralize}Parser".safe_constantize ||
+      DataImp::Parser.find_parser(type)
   end
 
   def find_importer type
     return type if type.kind_of? DataImp::Porter
     type = type.to_s.camelize
-    const_get "#{type}Importer"
-  rescue NameError => e
-    DataImp::Porter.find_importer type
+    "#{type}Importer".safe_constantize ||
+      "#{type.singularize}Importer".safe_constantize ||
+      "#{type.pluralize}Importer".safe_constantize ||
+      "#{type.singularize}Porter".safe_constantize ||
+      "#{type.pluralize}Porter".safe_constantize ||
+      DataImp::Porter.find_importer(type)
   end
 end

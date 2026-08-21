@@ -2,7 +2,6 @@ require "spec_helper"
 
 RSpec.describe DataImp::Importer do
   it_behaves_like "find importer", :find_importer
-  it_behaves_like "find importer", :find
   let(:hash){HashWithIndifferentAccess.new(foo: :bar, 'blue': 'beetle')}
   let(:index){1}
   subject{ described_class.new(hash, index) }

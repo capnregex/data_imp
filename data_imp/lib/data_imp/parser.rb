@@ -10,7 +10,8 @@ class DataImp::Parser
     def find_parser type
       return self if type.blank?
       begin
-        const_get type.camelize
+        type = type.to_s.camelize
+        const_get type
       rescue NameError => e
         if require_relative "parser/#{type.underscore}"
           retry 
@@ -19,8 +20,6 @@ class DataImp::Parser
     rescue LoadError => e
       raise DataImp::NoParser.new(type)
     end
-
-    alias_method :find, :find_parser
   end
 
   def parse chunk
@@ -42,4 +41,7 @@ class DataImp::Parser
     end
   end
 end
+require_relative './parser/csv.rb'
+require_relative './parser/json.rb'
+require_relative './parser/yaml.rb'
 

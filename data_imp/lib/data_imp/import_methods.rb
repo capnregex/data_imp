@@ -5,7 +5,7 @@ require_relative "importer"
 
 module DataImp::ImportMethods
   def import(*files, **options, &block)
-    files.each do |file|
+    files.flatten.each do |file|
       file.strip!
       unless file =~ /^#/
         new(file, **options, &block).import
@@ -14,7 +14,7 @@ module DataImp::ImportMethods
   end
 
   def import_list(*lists, **options, &block)
-    lists.each do |list|
+    lists.flatten.each do |list|
       list.each_line do |file|
         import file, **options, &block
       end

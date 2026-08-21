@@ -1,4 +1,3 @@
-require 'csv'
 
 class DataImp::Parser::Csv < DataImp::Parser
   def options

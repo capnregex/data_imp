@@ -4,6 +4,9 @@ end
 
 require 'active_support'
 require 'active_support/all'
+require 'csv'
+require 'yaml'
+require 'json'
 
 require_relative "data_imp/version"
 require_relative "data_imp/options"
